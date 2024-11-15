@@ -1,0 +1,188 @@
+{
+	"info": {
+		"_postman_id": "8aeb27e7-cf55-440c-a778-bc929bb4fd3c",
+		"name": "Retail Pulse",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31696030"
+	},
+	"item": [
+		{
+			"name": "Status API",
+			"item": [
+				{
+					"name": "Job Id found [OK]",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/status?jobid=1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"status"
+							],
+							"query": [
+								{
+									"key": "jobid",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Store Id not found [Bad Req]",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/status?jobid=2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"status"
+							],
+							"query": [
+								{
+									"key": "jobid",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Job Id not found [Bad Req]",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/status?jobid=777",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"status"
+							],
+							"query": [
+								{
+									"key": "jobid",
+									"value": "777"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Submit API",
+			"item": [
+				{
+					"name": "VALID [OK]",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"count\":2,\r\n   \"visits\":[\r\n      {\r\n         \"store_id\":\"S00339218\",\r\n         \"image_url\":[\r\n            \"https://www.gstatic.com/webp/gallery/2.jpg\",\r\n            \"https://www.gstatic.com/webp/gallery/3.jpg\"\r\n         ],\r\n         \"visit_time\": \"time of store visit\"\r\n      },\r\n      {\r\n         \"store_id\":\"S01408764\",\r\n         \"image_url\":[\r\n            \"https://www.gstatic.com/webp/gallery/3.jpg\"\r\n         ],\r\n         \"visit_time\": \"time of store visit\"\r\n      }\r\n   ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/submit/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"submit",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Count != Visits [Bad Req]",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"count\": 1,\r\n    \"visits\": [\r\n        {\r\n            \"store_id\": \"S00339ss218\",\r\n            \"image_url\": [\r\n                \"https://www.gstatic.com/webp/gallery/2.jpg\",\r\n                \"https://www.gstatic.com/webp/gallery/3.jpg\"\r\n            ],\r\n            \"visit_time\": \"time of store visit\"\r\n        },\r\n        {\r\n            \"store_id\": \"S01408764\",\r\n            \"image_url\": [\r\n                \"https://www.gstatic.com/webp/gallery/3.jpg\"\r\n            ],\r\n            \"visit_time\": \"time of store visit\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/submit/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"submit",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Invalid StoreID [OK]",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"count\":2,\r\n   \"visits\":[\r\n      {\r\n         \"store_id\":\"INVALID_STORE_ID\",\r\n         \"image_url\":[\r\n            \"https://www.gstatic.com/webp/gallery/2.jpg\",\r\n            \"https://www.gstatic.com/webp/gallery/3.jpg\"\r\n         ],\r\n         \"visit_time\": \"time of store visit\"\r\n      },\r\n      {\r\n         \"store_id\":\"S01408764\",\r\n         \"image_url\":[\r\n            \"https://www.gstatic.com/webp/gallery/3.jpg\"\r\n         ],\r\n         \"visit_time\": \"time of store visit\"\r\n      }\r\n   ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/submit/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"submit",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
