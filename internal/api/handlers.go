@@ -129,7 +129,7 @@ func (h *JobHandler) processJob(jobID int, visits []models.Visit) {
 	// Then process all images
 	for _, visit := range visits {
 		for _, imageURL := range visit.ImageURLs {
-			if err := processor.ProcessImage(imageURL); err != nil {
+			if _, err := processor.ProcessImage(imageURL); err != nil {
 				h.jobMutex.Lock()
 				job.Status = "failed"
 				job.Errors = []models.Error{{

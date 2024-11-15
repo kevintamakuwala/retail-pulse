@@ -1,30 +1,37 @@
 package processor
 
 import (
-	"io"
-	"math/rand"
+	"image"
+	_ "image/gif"
+	_ "image/jpeg"
+	_ "image/png"
+	"log"
 	"net/http"
-	"time"
 )
 
-// ProcessImage downloads and processes an image
-func ProcessImage(imageURL string) error {
+func ProcessImage(imageURL string) (int, error) {
+	log.Printf("Downloading image: %s", imageURL)
+
 	// Download image
 	resp, err := http.Get(imageURL)
 	if err != nil {
-		return err
+		log.Printf("Error downloading image: %s, error: %v", imageURL, err)
+		return 0, err
 	}
 	defer resp.Body.Close()
 
-	// Read image data
-	_, err = io.ReadAll(resp.Body)
+	// Decode img
+	config, _, err := image.DecodeConfig(resp.Body)
 	if err != nil {
-		return err
+		log.Printf("Decoding Failed: %v", err)
+		return 0, err
 	}
 
-	// Simulate processing time (0.1 to 0.4 seconds as per requirements)
-	sleepTime := 100 + rand.Intn(300)
-	time.Sleep(time.Duration(sleepTime) * time.Millisecond)
+	// Calculate perimeter
+	width := config.Width
+	height := config.Height
+	perimeter := 2 * (width + height)
+	log.Printf("Image processed: %s, perimeter: %d", imageURL, perimeter)
 
-	return nil
+	return perimeter, err
 }
